@@ -34,7 +34,7 @@ func main() {
 	flower := r.Group("/api/flower")
 	{
 		flower.POST("/", addFlower)
-		flower.GET("/", fetchFllower)
+		flower.GET("/", fetchFlower)
 	}
 
 	r.GET("/ping", func(c *gin.Context) {
