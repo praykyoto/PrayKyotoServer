@@ -71,8 +71,10 @@ func addFlower(c *gin.Context) {
 		})
 		return
 	}
+	db.First(&flower, 1)
 	c.JSON(http.StatusOK, gin.H{
 		"status": http.StatusOK,
+		"num":    flower.Num,
 	})
 }
 
