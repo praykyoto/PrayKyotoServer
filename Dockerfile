@@ -2,6 +2,7 @@
 FROM alpine:latest as builder
 RUN apk update
 RUN apk upgrade
+RUN apk add --update go gcc g++
 WORKDIR /app
 
 ENV GOPATH='/app' SRC_DIR="/app/src/PrayKyotoServer"
