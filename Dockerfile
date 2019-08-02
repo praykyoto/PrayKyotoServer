@@ -1,15 +1,15 @@
 # BUILD stage
-FROM golang:latest as builder
+FROM alpine:latest as builder
+RUN apk update
+RUN apk upgrade
+WORKDIR /app
 
-ENV SRC_DIR="$GOPATH/src/PrayKyotoServer"
+ENV GOPATH='/app' SRC_DIR="/app/src/PrayKyotoServer"
 
-WORKDIR $SRC_DIR 
 ADD . $SRC_DIR
-RUN go get -u github.com/gin-gonic/gin
-RUN go get -u github.com/mattn/go-sqlite3
-RUN go get -u github.com/jinzhu/gorm
-RUN go build .
-RUN mkdir -p /dist/app && mkdir -p /dist/db && cp PrayKyotoServer /dist/app/PrayKyotoServer
+RUN go get PrayKyotoServer
+RUN CGO_ENABLE=1 GOOS=linux go install -a PrayKyotoServer
+RUN mkdir -p /dist/app && mkdir -p /dist/db && cp /app/bin/PrayKyotoServer /dist/app/PrayKyotoServer
 
 # DIST stage
 FROM alpine:latest
