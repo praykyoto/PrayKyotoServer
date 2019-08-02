@@ -1,8 +1,8 @@
 # BUILD stage
-FROM alpine:latest as builder
+FROM alpine:edge as builder
 RUN apk update
 RUN apk upgrade
-RUN apk add --update go gcc g++
+RUN apk add --update go gcc g++ git
 WORKDIR /app
 
 ENV GOPATH='/app' SRC_DIR="/app/src/PrayKyotoServer"
